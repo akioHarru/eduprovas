@@ -31,8 +31,8 @@ function cadastrarQuestao($conn, $data) {
 
     $tipo = 'Múltipla Escolha';
 
-    // AQUI O AJUSTE PARA 'questaotb'
-    $sql = "INSERT INTO questaotb (id_disciplina, id_assunto, enunciado, alternativa_a, alternativa_b, alternativa_c, alternativa_d, resposta, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    // AQUI O AJUSTE PARA 'questãotb'
+    $sql = "INSERT INTO questãotb (id_disciplina, id_assunto, enunciado, alternativa_a, alternativa_b, alternativa_c, alternativa_d, resposta, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
         error_log("cadastrarQuestao: Erro ao preparar: " . $conn->error);
@@ -73,8 +73,8 @@ function editarQuestao($conn, $data) {
         return ['success' => false, 'message' => 'IDs de Questão, Disciplina ou Assunto inválidos.'];
     }
 
-    // AQUI O AJUSTE PARA 'questaotb'
-    $sql = "UPDATE questaotb SET id_disciplina = ?, id_assunto = ?, enunciado = ?, alternativa_a = ?, alternativa_b = ?, alternativa_c = ?, alternativa_d = ?, resposta = ? WHERE id_questao = ?";
+    // AQUI O AJUSTE PARA 'questãotb'
+    $sql = "UPDATE questãotb SET id_disciplina = ?, id_assunto = ?, enunciado = ?, alternativa_a = ?, alternativa_b = ?, alternativa_c = ?, alternativa_d = ?, resposta = ? WHERE id_questao = ?";
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
         error_log("editarQuestao: Erro ao preparar: " . $conn->error);
@@ -98,8 +98,8 @@ function excluirQuestao($conn, $id) {
         return ['success' => false, 'message' => 'ID de questão inválido.'];
     }
 
-    // AQUI O AJUSTE PARA 'questaotb'
-    $sql = "DELETE FROM questaotb WHERE id_questao = ?";
+    // AQUI O AJUSTE PARA 'questãotb'
+    $sql = "DELETE FROM questãotb WHERE id_questao = ?";
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
         error_log("excluirQuestao: Erro ao preparar: " . $conn->error);
@@ -119,9 +119,9 @@ function excluirQuestao($conn, $id) {
 
 
 function mostrarQuestoes($conn, $filters = []) {
-    // AQUI OS AJUSTES PARA 'questaotb', 'disciplinatb', 'assuntotb'
+    // AQUI OS AJUSTES PARA 'questãotb', 'disciplinatb', 'assuntotb'
     $sql = "SELECT q.*, d.nome_disciplina, a.nome_assunto
-            FROM questaotb q
+            FROM questãotb q
             JOIN disciplinatb d ON q.id_disciplina = d.id_disciplina
             JOIN assuntotb a ON q.id_assunto = a.id_assunto";
     $params = [];
@@ -180,9 +180,9 @@ function gerarProva($conn, $selected_ids) {
     $placeholders = implode(',', array_fill(0, count($clean_ids), '?'));
     $types = str_repeat('i', count($clean_ids));
 
-    // AQUI OS AJUSTES PARA 'questaotb', 'disciplinatb', 'assuntotb'
+    // AQUI OS AJUSTES PARA 'questãotb', 'disciplinatb', 'assuntotb'
     $sql = "SELECT q.*, d.nome_disciplina, a.nome_assunto
-            FROM questaotb q
+            FROM questãotb q
             JOIN disciplinatb d ON q.id_disciplina = d.id_disciplina
             JOIN assuntotb a ON q.id_assunto = a.id_assunto
             WHERE q.id_questao IN ($placeholders)";

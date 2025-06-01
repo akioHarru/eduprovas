@@ -158,8 +158,8 @@ if (isset($_GET['edit_questao'])) {
     $edit_id_questao = filter_var($_GET['edit_questao'], FILTER_VALIDATE_INT);
     if ($edit_id_questao !== false) {
         $edit_mode_questao = true;
-        // CORREÇÃO: Usando a tabela correta 'questaotb'
-        $stmt = $conn->prepare("SELECT * FROM questaotb WHERE id_questao = ?");
+        // CORREÇÃO: Usando a tabela correta 'questãotb'
+        $stmt = $conn->prepare("SELECT * FROM questãotb WHERE id_questao = ?");
         $stmt->bind_param("i", $edit_id_questao);
         $stmt->execute();
         $result = $stmt->get_result();
